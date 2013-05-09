@@ -18,6 +18,13 @@ Or install it yourself as:
 
 ## Usage
 
+Create and run migration:
+
+    rails g attribute_changer
+    rake db:migrate
+
+Example usage:
+
     class Dummy < ActiveRecord::Base
       include AttributeChanger::Allower
     
