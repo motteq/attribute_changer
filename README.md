@@ -20,10 +20,8 @@ Or install it yourself as:
 
 Create and run migration:
 
-```console
-rails g attribute_changer
-rake db:migrate
-```
+    $ rails g attribute_changer
+    $ rake db:migrate
 
 Example usage:
 
