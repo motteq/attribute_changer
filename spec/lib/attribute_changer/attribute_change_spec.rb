@@ -39,4 +39,36 @@ describe AttributeChanger::AttributeChange do
       it "returns dependent attributes"
     end
   end
+
+  describe "after create" do
+    describe "changing status" do
+      context "changing the same object" do
+        context "changing the same attribute" do
+          it "changes status to obsolete" do
+            change1 = FactoryGirl.create :attribute_change
+            change2 = FactoryGirl.create :attribute_change, obj: change1.obj, value: 'Jane'
+            change1.reload.status.should == 'obsolete'
+          end
+        end
+        
+        context "changing different attributes" do
+          it "does not change status of previous different attribute's change" do
+            change1 = FactoryGirl.create :attribute_change
+            change2 = FactoryGirl.create :attribute_change, obj: change1.obj, attrib: 'last_name', value: 'Jane'
+            change1.reload.status.should == 'pending'
+          end
+        end
+      end
+
+      context "changing different objects" do
+        context "changing the same attribute" do
+          it "does not change status" do
+            change1 = FactoryGirl.create :attribute_change
+            change2 = FactoryGirl.create :attribute_change
+            change1.reload.status.should == 'pending'
+          end
+        end
+      end
+    end
+  end
 end
